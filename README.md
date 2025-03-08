@@ -184,6 +184,34 @@ http://your_ip_address/api/
 
 ---
 
+## API Endpoints Table
+
+| Endpoint            | Method  | Description                                     | Request Body                                                                                      | Response                                   | Permissions                |
+|---------------------|---------|-------------------------------------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------|----------------------------|
+| `/categories/`       | GET     | Retrieve the list of categories                 | None                                                                                              | JSON list of categories                  | `IsAuthenticatedOrReadOnly`|
+| `/categories/`       | POST    | Create a new category                           | `{ "name": "string", "description": "string" }`                                                     | Created category object                   | `IsAuthenticated`          |
+| `/products/`         | GET     | Retrieve the list of products                   | None                                                                                              | JSON list of products                    | `IsAuthenticatedOrReadOnly`|
+| `/products/`         | POST    | Create a new product                            | `{ "name": "string", "description": "string", "price": decimal, "stock": integer, "category": integer, "image": "image_url" }` | Created product object                    | `IsAuthenticated`          |
+| `/products/{id}/`    | PUT     | Update an existing product                      | `{ "name": "string", "description": "string", "price": decimal, "stock": integer, "category": integer, "image": "image_url" }` | Updated product object                    | `IsAuthenticated`          |
+| `/products/{id}/`    | DELETE  | Delete a product                                | None                                                                                              | Success message                          | `IsAuthenticated`          |
+| `/orders/`           | GET     | Retrieve orders for authenticated user          | None                                                                                              | JSON list of orders                      | `IsAuthenticated`          |
+| `/orders/`           | POST    | Create a new order                              | `{ "user": integer, "total_amount": decimal, "status": "string" }`                                 | Created order object                     | `IsAuthenticated`          |
+| `/cart/`             | GET     | Retrieve the cart for authenticated user        | None                                                                                              | JSON cart object                         | `IsAuthenticated`          |
+| `/cart/`             | POST    | Create or update cart for authenticated user    | `{ "user": integer, "items": [{ "product": integer, "quantity": integer }] }`                     | Created or updated cart object           | `IsAuthenticated`          |
+| `/cart-items/`       | GET     | Retrieve the cart items for authenticated user  | None                                                                                              | JSON list of cart items                  | `IsAuthenticated`          |
+| `/cart-items/`       | POST    | Add a new item to the cart                      | `{ "cart": integer, "product": integer, "quantity": integer }`                                      | Created cart item object                 | `IsAuthenticated`          |
+| `/cart-items/{id}/`  | PUT     | Update the quantity of an item in the cart      | `{ "quantity": integer }`                                                                          | Updated cart item object                 | `IsAuthenticated`          |
+| `/cart-items/{id}/`  | DELETE  | Remove an item from the cart                    | None                                                                                              | Success message                          | `IsAuthenticated`          |
+| `/reviews/`          | GET     | Retrieve reviews                                | None                                                                                              | JSON list of reviews                     | `IsAuthenticatedOrReadOnly`|
+| `/reviews/`          | POST    | Create a new review for a product               | `{ "product": integer, "user": integer, "rating": integer, "comment": "string" }`                 | Created review object                    | `IsAuthenticated`          |
+| `/profile/`          | GET     | Retrieve the authenticated user's profile       | None                                                                                              | JSON user profile object                 | `IsAuthenticated`          |
+| `/profile/`          | POST    | Create or update user's profile                 | `{ "phone": "string", "address": "string", "profile_picture": "image_url" }`                       | Created or updated profile object        | `IsAuthenticated`          |
+| `/wishlist/`         | GET     | Retrieve the authenticated user's wishlist      | None                                                                                              | JSON wishlist object                     | `IsAuthenticated`          |
+| `/wishlist/`         | POST    | Add a product to the user's wishlist            | `{ "user": integer, "product": integer }`                                                          | Updated wishlist object                  | `IsAuthenticated`          |
+| `/coupons/`          | GET     | Retrieve available coupons                      | None                                                                                              | JSON list of coupons                     | `IsAuthenticatedOrReadOnly`|
+| `/coupons/`          | POST    | Create a new coupon                             | `{ "code": "string", "discount_percent": integer, "valid_from": datetime, "valid_to": datetime, "active": boolean }` | Created coupon object                     | `IsAuthenticated`          |
+
+
 ## Example Request & Response
 
 **Example GET Request for `/products/`**
